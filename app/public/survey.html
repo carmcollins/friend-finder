@@ -169,9 +169,15 @@
             var newFriend = {
                 name: $("#name-input").val().trim(),
                 photo: $("#photo-input").val().trim(),
-                scores: [$("#q1").val().trim(), $("#q2").val().trim(), $("#q3").val().trim(), $("#q4").val().trim(), $("#q5").val().trim(), $("#q6").val().trim(), $("#q7").val().trim(), $("#q8").val().trim(), $("#q9").val().trim(), $("#q10").val().trim()]
+                scores: []
             };
 
+            for (var i = 1; i < 11; i++) {
+                var score = parseInt($("#q" + [i] + "").val(),10);
+                newFriend.scores.push(score);
+            };
+
+            // Resetting form values to default
             $("#name-input").val(""); 
             $("#photo-input").val("");
             $("#q1").val("1");

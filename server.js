@@ -20,21 +20,6 @@ app.get("/survey", function (req, res) {
     res.sendFile(path.join(__dirname, "/app/public/survey.html"));
 });
 
-// Settting up API routes
-app.get("/api/friends", function (req, res) {
-    return res.json(friends);
-});
-
-app.post("/api/friends", function (req, res) {
-    var newFriend = req.body;
-
-    console.log(newFriend);
-
-    friends.push(newFriend);
-
-    return res.json(friends);
-});
-
 // Setting up data
 var friends = [
     {
@@ -53,6 +38,36 @@ var friends = [
         "scores" : [5, 2, 2, 2, 5, 2, 5, 3, 2, 5]
     }
 ];
+
+// Settting up API routes
+app.get("/api/friends", function (req, res) {
+    return res.json(friends);
+});
+
+app.post("/api/friends", function (req, res) {
+    var newFriend = req.body;
+
+    console.log(newFriend);
+
+    var scoreDiffs = [];
+
+    for (var i = 0; i < friends.length; i++) {
+
+        var diff = 0;
+
+        for (var j = 0; j < friends[i].scores.length; j++) {
+            diff += Math.abs(friends[i].scores[j] - newFriend.scores[j]);
+        }
+
+        scoreDiffs.push(diff);
+    };
+
+    console.log(scoreDiffs);
+
+    friends.push(newFriend);
+
+    return res.json(friends);
+});
 
 // Starts the server to begin listening
 app.listen(PORT, function() {
