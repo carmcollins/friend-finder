@@ -47,8 +47,6 @@ app.get("/api/friends", function (req, res) {
 app.post("/api/friends", function (req, res) {
     var newFriend = req.body;
 
-    console.log(newFriend);
-
     var scoreDiffs = [];
 
     for (var i = 0; i < friends.length; i++) {
@@ -56,7 +54,7 @@ app.post("/api/friends", function (req, res) {
         var diff = 0;
 
         for (var j = 0; j < friends[i].scores.length; j++) {
-            diff += Math.abs(friends[i].scores[j] - newFriend.scores[j]);
+            diff += Math.abs(friends[i].scores[j] - parseInt(newFriend.scores[j]));
         }
 
         scoreDiffs.push(diff);
