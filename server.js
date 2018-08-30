@@ -11,63 +11,13 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Settting up HTML routes
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/app/public/home.html"));
-});
+// Importing files
+var htmlRoutes = require("./app/routing/htmlRoutes.js");
+var apiRoutes = require("./app/routing/apiRoutes.js");
 
-app.get("/survey", function (req, res) {
-    res.sendFile(path.join(__dirname, "/app/public/survey.html"));
-});
-
-// Setting up data
-var friends = [
-    {
-        "name" : "Carmen",
-        "photo" : "https://placehold.it/200x200",
-        "scores" : [2, 5, 3, 4, 4, 3, 2, 1, 3, 5]
-    },
-    {
-        "name" : "Olivia",
-        "photo" : "https://placehold.it/200x200",
-        "scores" : [3, 2, 4, 4, 4, 1, 2, 4, 1, 3]
-    },
-    {
-        "name" : "Natalie",
-        "photo" : "https://placehold.it/200x200",
-        "scores" : [5, 2, 2, 2, 5, 2, 5, 3, 2, 5]
-    }
-];
-
-// Settting up API routes
-app.get("/api/friends", function (req, res) {
-    return res.json(friends);
-});
-
-app.post("/api/friends", function (req, res) {
-    var newFriend = req.body;
-
-    var scoreDiffs = [];
-
-    for (var i = 0; i < friends.length; i++) {
-
-        var diff = 0;
-
-        for (var j = 0; j < friends[i].scores.length; j++) {
-            diff += Math.abs(friends[i].scores[j] - parseInt(newFriend.scores[j]));
-        }
-
-        scoreDiffs.push(diff);
-    };
-
-    var matchIndex = scoreDiffs.indexOf(Math.min(...scoreDiffs));
-
-    var match = friends[matchIndex];
-
-    friends.push(newFriend);
-
-    return res.json(match);
-});
+app.use(express.static("app/public"));
+htmlRoutes(app);
+apiRoutes(app);
 
 // Starts the server to begin listening
 app.listen(PORT, function() {
