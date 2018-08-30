@@ -62,11 +62,13 @@ app.post("/api/friends", function (req, res) {
         scoreDiffs.push(diff);
     };
 
-    console.log(scoreDiffs);
+    var matchIndex = scoreDiffs.indexOf(Math.min(...scoreDiffs));
+
+    var match = friends[matchIndex];
 
     friends.push(newFriend);
 
-    return res.json(friends);
+    return res.json(match);
 });
 
 // Starts the server to begin listening
