@@ -1,5 +1,4 @@
 var friends = require("../data/friends");
-var bodyParser = require("body-parser");
 
 // Settting up API routes
 function apiRoutes(app) {
@@ -8,8 +7,10 @@ function apiRoutes(app) {
     });
 
     app.post("/api/friends", function (req, res) {
+        // Get the info from newFriend
         var newFriend = req.body;
 
+        // Compare the newFriend's scores to all of the other scores in the friends array
         var scoreDiffs = [];
 
         for (var i = 0; i < friends.length; i++) {
@@ -23,12 +24,15 @@ function apiRoutes(app) {
             scoreDiffs.push(diff);
         };
 
+        // Whoever's scoreDiff is the lowest is the user's match
         var matchIndex = scoreDiffs.indexOf(Math.min(...scoreDiffs));
 
         var match = friends[matchIndex];
 
+        // Add newFriend to the friends array
         friends.push(newFriend);
 
+        // Send the match's info back to survey.html
         return res.json(match);
     });
 };

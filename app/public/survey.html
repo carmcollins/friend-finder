@@ -156,6 +156,7 @@
                 </form>
             </div>
         </div>
+        <!-- Links -->
         <p class="text-center">
             <a href="api/friends" target="blank">API Friend List</a> | <a href="https://github.com/carmcollins/friend-finder" target="blank">Git Hub Repo</a>
         </p>
@@ -218,12 +219,13 @@
             $("#q10").val("1");
             
             $.post("/api/friends", newFriend).then(function (data) {
+                // Get the user's match back from the route and push their info to the modal
                 var matchName = data.name;
                 var matchPhoto = data.photo;
 
                 var modalHTML =
-                    "<h5>" + matchName + "</h5>" +
-                    "<img src='" + matchPhoto + "' alt='match photo'>";
+                    "<h1 class='display-4'>" + matchName + "</h1>" +
+                    "<img src='" + matchPhoto + "' alt='match photo' class='img-thumbnail' width='400'>";
                 
                 $(".modal-body").html(modalHTML);
                 $("#modalbox").modal("toggle");
