@@ -11,17 +11,28 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Jua" rel="stylesheet">
+    <!-- CSS Styles -->
+    <style>
+        body {
+            background-color: lavender;
+        }
+        h1, h3, .btn {
+            font-family: 'Jua', sans-serif;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
     <div class="container center">
         <div class="card mt-5 mb-4">
             <div class="card-body">
-                <h1 class="display-4 text-center">Survey Questions</h1>
+                <h1 class="display-4 text-center text-info">Survey Questions</h1>
                 <hr class="my-4">
                 <form>
                     <!-- About You Section -->
                     <h3>About You</h3>
-                    <p><small>Name and photo are required.</small></p>
+                    <p><i><small>Name and photo URL are required.</small></i></p>
                         <!-- Name -->
                         <div class="form-group">
                             <label for="name">Name:</label>
@@ -37,7 +48,7 @@
                     <hr class="my-4">
                     <!-- Questions Section -->
                     <h3>Questions</h3>
-                    <p><small>Answer the questions below on a scale of 1-5, with 1 meaning "strongly disagree" and 5 meaning "strongly agree."</small></p>
+                    <p><i><small>Answer the questions below with 1 meaning "strongly disagree" and 5 meaning "strongly agree."</small></i></p>
                         <!-- Q1 -->
                         <div class="row">
                         <div class="form-group col-md-6">
@@ -63,7 +74,7 @@
                         </div>
                         <!-- Q3 -->
                         <div class="form-group col-md-6">
-                        <label for="q3">Your prefer to stay in on Saturday nights.</label>
+                        <label for="q3">You prefer to stay in on Saturday nights.</label>
                             <select class="form-control col-md-8" id="q3">
                                 <option>1</option>
                                 <option>2</option>
@@ -107,7 +118,7 @@
                         </div>
                         <!-- Q7 -->
                         <div class="form-group col-md-6">
-                        <label for="q7">You spend over 5 hours per day on your phone.</label>
+                        <label for="q7">You spend over five hours per day on your phone.</label>
                             <select class="form-control col-md-8" id="q7">
                                 <option>1</option>
                                 <option>2</option>
@@ -153,14 +164,14 @@
                         <hr class="my-4">
                     <!-- Submit button -->
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-lg" id="submit-btn"><i class="far fa-check-circle"></i> Submit</button>
+                        <button type="submit" class="btn btn-info btn-lg" id="submit-btn"><i class="far fa-check-circle"></i> Submit</button>
                     </div>
                 </form>
             </div>
         </div>
         <!-- Links -->
         <p class="text-center">
-            <a href="api/friends" target="blank">API Friend List</a> | <a href="https://github.com/carmcollins/friend-finder" target="blank">Git Hub Repo</a>
+            <a href="api/friends" target="blank" class="text-info">API Friend List</a> | <a href="https://github.com/carmcollins/friend-finder" target="blank" class="text-info">Git Hub Repo</a>
         </p>
     </div>
 
@@ -177,7 +188,7 @@
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
@@ -235,7 +246,7 @@
                 var matchPhoto = data.photo;
 
                 var modalHTML =
-                    "<h1 class='display-4'>" + matchName + "</h1>" +
+                    "<h1 class='display-4 text-info'>" + matchName + "</h1>" +
                     "<img src='" + matchPhoto + "' alt='match photo' class='img-thumbnail' width='400'>";
                 
                 $(".modal-body").html(modalHTML);
