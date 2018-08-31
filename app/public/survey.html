@@ -26,11 +26,13 @@
                         <div class="form-group">
                             <label for="name">Name:</label>
                             <input type="name" class="form-control" id="name-input" placeholder="Your Name">
+                            <div id="name-err-msg"></div>
                         </div>
                         <!-- Photo URL -->
                         <div class="form-group">
                             <label for="photo">Link to Photo URL:</label>
                             <input type="photo" class="form-control" id="photo-input" placeholder="http://...">
+                            <div id="photo-err-msg"></div>
                         </div>
                     <hr class="my-4">
                     <!-- Questions Section -->
@@ -186,8 +188,14 @@
         // When the user presses the submit button, send their results to api/friends
         $("#submit-btn").on("click", function(event) {
             event.preventDefault();
-            
-            var newFriend = {
+
+            if (!$("#name-input").val()) {
+                $("#name-err-msg").html("<p class='text-danger'>Please enter your name!</p>");
+            } else if (!$("#photo-input").val()) {
+                $("#photo-err-msg").html("<p class='text-danger'>Please enter an image address!</p>");
+            } else {
+
+                var newFriend = {
                 name: $("#name-input").val().trim(),
                 photo: $("#photo-input").val().trim(),
                 scores: [
@@ -202,21 +210,24 @@
                     $("#q9").val(),
                     $("#q10").val()
                 ]
-            };
+                };
 
-            // Resetting form values to default
-            $("#name-input").val(""); 
-            $("#photo-input").val("");
-            $("#q1").val("1");
-            $("#q2").val("1");
-            $("#q3").val("1");
-            $("#q4").val("1");
-            $("#q5").val("1");
-            $("#q6").val("1");
-            $("#q7").val("1");
-            $("#q8").val("1");
-            $("#q9").val("1");
-            $("#q10").val("1");
+                // Resetting form values to default
+                $("#name-input").val(""); 
+                $("#photo-input").val("");
+                $("#q1").val("1");
+                $("#q2").val("1");
+                $("#q3").val("1");
+                $("#q4").val("1");
+                $("#q5").val("1");
+                $("#q6").val("1");
+                $("#q7").val("1");
+                $("#q8").val("1");
+                $("#q9").val("1");
+                $("#q10").val("1");
+                $("#name-err-msg").html("");
+                $("#photo-err-msg").html("");
+
             
             $.post("/api/friends", newFriend).then(function (data) {
                 // Get the user's match back from the route and push their info to the modal
@@ -230,6 +241,8 @@
                 $(".modal-body").html(modalHTML);
                 $("#modalbox").modal("toggle");
             });
+
+            };
         });
     </script>
 </body>
